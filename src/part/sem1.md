@@ -128,13 +128,14 @@ Après un redémarrage de la machine, on peut ainsi changer la résolution de l'
 Il est possible par certains moyens d'automatiser l'installation de notre machine Debian 12, afin d'installer par défaut les applications que l'on souhaite, de créer les utilisateurs, en résumé de ne pas avoir à se soucier des étapes vues lors de l'installation manuelle.
 
 L'archive donnée par le corps enseignant permet de procéder à une installation automatisée. 
-La première chose à faire est de remplacer l'emplacement de l'identifiant par un identifiant généré aléatoirement valide pour débuter l'installation. On le fait grâce à a commande :
+La première chose à faire est de remplacer l'emplacement de l'identifiant par un identifiant généré aléatoirement valide pour débuter l'installation. On le fait grâce à la commande :
 ```
 sed -i -E "s/(--iprt-iso-maker-file-marker-bourne-sh).*$/\1=$(cat
 /proc/sys/kernel/random/uuid)/" S203-Debian12.viso
 ```
-$$peut etre expliquer comment la commande génère l'id$$
-L'identifiant généré se voir à la première ligne du document S203-Debian12.viso.
+En lisant ```/proc/kernel/random/uuid```, on recupère un identifiant généré aléatoirement par le noyeau de la machine. Cette commande utilise donc un sed pour remplacer l'emplacement de l'identifiant par la valeur aléatoire obtenue par le cat.
+
+L'identifiant généré peut se voir à la première ligne du document S203-Debian12.viso.
 
 ![document viso après commande sed](../../ressources/img/sem1/commSed.png)
 
