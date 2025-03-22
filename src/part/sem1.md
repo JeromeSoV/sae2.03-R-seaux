@@ -59,7 +59,7 @@ L'installation est maintenant terminée et on est prêts à utiliser la machine 
 
 ### 3^ème^ Partie : Préparation du système
 
-Pour accorder les droits sudo à un compte utilisateur user, il est tout d'abord nécessaire de se connecter en tant que superutilisateur root avec; depuis le terminal, la commande ```su root``` suivi de la saisie du mot de passe de root. À partir d'ici, plusieurs choix sont possibles, comme éditer le fichier /etc/sudoers avec la ligne ```user = ALL(ALL:ALL) ALL``` $$Peut être détailler ce que signifie chaque ALL$$. Un autre moyen est d'utiliser la commande ```usermod -aG sudo user```, ce qui ajoute user au groupe sudo, ce qui permettra à user d'utiliser la commande sudo après une reconnexion.
+Pour accorder les droits sudo à un compte utilisateur user, il est tout d'abord nécessaire de se connecter en tant que superutilisateur root avec; depuis le terminal, la commande ```su root``` suivi de la saisie du mot de passe de root. À partir d'ici, plusieurs choix sont possibles, comme éditer le fichier /etc/sudoers avec la ligne ```user = ALL(ALL:ALL) ALL```. Cette règle indique que l'on donne les droits sur n'importe quelle machine que cet utilisateur utilise (premier ALL), en prenant les droits de tous les utilisateurs et groupes (deuxième et troisème ALL), et le droit d'exécuter toutes les commandes (dernier ALL). Un autre moyen est d'utiliser la commande ```usermod -aG sudo user```, ce qui ajoute user au groupe sudo, ce qui permettra à user d'utiliser la commande sudo après une reconnexion.
 
 On peut vérifier l'appartenance au groupe sudo de user avec la commande ```groups [user]```, qui nous listera tous les groupes auxquels user est membre.
 
