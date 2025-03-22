@@ -145,11 +145,9 @@ Cependant ,lancer directement l'installation nous donne une machine sans les paq
 ![aperçu de la machine](../../ressources/img/sem1/suroot.png)
 
 En particulier comme l'on voit ci-dessus, la machine n'a pas de partie graphique, dû à la non installation de MATE par exemple. De plus il nous manque des fonctionnalités, comme l'appel à la commande sudo. Des problèmes pareils peuvent être réglés manuellement, mais il est d'autant plus intéressant et pratique de revenir en arrière et de s'intéresser à la manipulation des fichiers de notre archive afin de régler ces problèmes en amont de l'installation. 
-Ainsi il est important de modifier le document preseed.cfg.
-On modifie à deux endroits : 
-  * Dans la partie installation meta-paquetages : à la ligne 82 de la commande tasksel, il nous suffit d'ajouter le paquet mate-desktop à la fin de la ligne.
-  * Puis dans la partie custom commands, ajouter les lignes suivantes, qui seront donc exécutées en dernière partie d'installation : 
-  $$trompé dans la méthode, les commandes sont à mettre dans vboxpostinstall.sh de souvenir, à vérifier$$
+Ainsi il est important de modifier le document preseed.cfg. Dans la partie installation meta-paquetages : à la ligne 82 de la commande tasksel, il nous suffit d'ajouter le paquet mate-desktop à la fin de la ligne.
+
+Ensuite, on modifie le fichier vboxpostinstall.sh, qui est un script s'éxécutant après installation. On y ajoute les lignes de commande suivantes afin d'ajouter les fonctionnalités que l'on souhaite : 
 
   ![commandes d'installation de paquets](../../ressources/img/sem1/commandesAuto.png)
   
