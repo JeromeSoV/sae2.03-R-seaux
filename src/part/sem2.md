@@ -1,0 +1,3 @@
+## Semaine 2 : Apprentissage de balisage léger avec Markdown
+
+Nous avons choisi d\'utiliser et d\'apprendre Markdown pour ce projet. Pour aider à l'apprendre nous avons crée un document dans lequel on a noté ce que l'on a appris pendant les séances d'autonomie. Nous avons réussi à nous familariser avec Mardown sans trop de difficultés. Nous avons de même pu apprendre à transformer un fichier markdown en pdf, méthode que nous avons renseigné dans le readme.

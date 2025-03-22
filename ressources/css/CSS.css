@@ -1,0 +1,32 @@
+h1{
+    display:flex;
+    justify-content: center;
+    text-decoration: underline;
+}
+h2{
+    color:darkred;
+}
+h3{
+    text-indent: 3%;
+    color: darkblue;
+}
+figure{
+    width: 50%;
+    margin: 0 auto;
+    
+}
+figure>figcaption{
+  text-align: center;
+  color : lightgrey;
+  
+}
+code{
+  background-color: lightgrey;
+}
+h1+p,h1+p+p{
+  text-align: center;
+}
+#TOC+figure,#TOC{
+  display:flex;
+  flex-direction: column-reverse; 
+}
