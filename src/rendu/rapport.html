@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Jérôme SAUVÉ, Alexandre MAINTIER" />
+  <title>SAÉ 2.03 : Installation de services réseaux</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="../../ressources/css/CSS.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">SAÉ 2.03 : Installation de services réseaux</h1>
+<p class="author">Jérôme SAUVÉ, Alexandre MAINTIER</p>
+<p class="date">28/02/2025</p>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#semaine-1-préparation-vm-par-pré-configuration">Semaine 1 : Préparation VM par <strong>pré-configuration</strong></a><ul>
+<li><a href="#ère-partie">1<sup>ère</sup> partie</a></li>
+<li><a href="#ème-partie-préparation-dune-machine-virtuelle-debian">2<sup>ème</sup> Partie : Préparation d’une machine virtuelle Debian</a></li>
+<li><a href="#ème-partie-préparation-du-système">3<sup>ème</sup> Partie : Préparation du système</a></li>
+<li><a href="#ème-partie-à-propos-de-la-distribution-debian">4<sup>ème</sup> Partie : À propos de la distribution Debian</a></li>
+<li><a href="#ème-partie-installation-préconfigurée">5<sup>ème</sup> Partie : Installation préconfigurée</a></li>
+</ul></li>
+<li><a href="#semaine-2-apprentissage-de-balisage-léger-avec-markdown">Semaine 2 : Apprentissage de balisage léger avec Markdown</a></li>
+<li><a href="#semaine-3-recherchesétudes-applications-clientes">Semaine 3 : Recherches/études applications clientes</a><ul>
+<li><a href="#ère-partie-configuration-globale-de-git">1<sup>ère</sup> Partie: configuration globale de git</a></li>
+<li><a href="#ème-partie-les-interfaces-graphiques-pour-git">2<sup>ème</sup> Partie : Les interfaces graphiques pour git</a></li>
+<li><a href="#ème-partie-installons-autre-chose-et-comparons.">3<sup>ème</sup> Partie : Installons autre chose et comparons.</a></li>
+</ul></li>
+<li><a href="#semaine-4-istallation-de-gitea">Semaine 4 : Istallation de Gitea</a><ul>
+<li><a href="#installation-de-gitea">Installation de Gitea</a></li>
+<li><a href="#mise-à-jour">Mise à jour</a></li>
+<li><a href="#tests-dutilisation">Tests d’utilisation</a></li>
+</ul></li>
+</ul>
+</nav>
+<h2 id="semaine-1-préparation-vm-par-pré-configuration">Semaine 1 : Préparation VM par <strong>pré-configuration</strong></h2>
+<h3 id="ère-partie">1<sup>ère</sup> partie</h3>
+<p>En discutant avec nos amis, nous avons choisi de créer un groupe de 2 (avec le feu vert du professeur). Puis on a commencé à travailler.</p>
+<h3 id="ème-partie-préparation-dune-machine-virtuelle-debian">2<sup>ème</sup> Partie : Préparation d’une machine virtuelle Debian</h3>
+<p>Dans cette partie, nous avons mis en commun nos réponses et expériences pour avoir un rapport cohérent. Nous avons principalement fait des manipulations qu’il nous a déjà été donné d’apprendre au cours du premier semestre concernant l’installation de machines virtuelles via Virtual Box.</p>
+<figure>
+<img src="../../ressources/img/sem1/VB1.png" alt="choix système de VM" /><figcaption>choix système de VM</figcaption>
+</figure>
+<figure>
+<img src="../../ressources/img/sem1/VB2.png" alt="choix Ram" /><figcaption>choix Ram</figcaption>
+</figure>
+<figure>
+<img src="../../ressources/img/sem1/VB3.png" alt="choix capacité stockage" /><figcaption>choix capacité stockage</figcaption>
+</figure>
+<p>Nous avons ensuite installé un fichier iso de Debian 12 64-bit. En lançant la machine, nous procédons à l’installation manuelle, en choisissant :</p>
+<ul>
+<li>La localisation de la machine : France.</li>
+<li>La langue par défaut utilisée : Français.</li>
+<li>Le nom d’hôte de la machine : serveur.</li>
+<li>Le nom de domaine : non renseigné.</li>
+<li>les nom et mot de passe de l’utilisateur root : root/root.</li>
+<li>les nom et mot de passe du premier compte utilisateur : User/user.</li>
+<li>On choisit de ne pas partitionner en plusieurs parties le disque de stockage de la machine.</li>
+<li>On choisit l’adresse du miroir que notre machine utilisera pour gérer les paquets : debian.polytech-lille.fr.</li>
+<li>On choisit les logiciels à installer par défaut :
+<ul>
+<li>environnement de bureau Debian</li>
+<li>MATE</li>
+<li>serveur web</li>
+<li>serveur SSH</li>
+<li>utilitaires usuels du système</li>
+</ul></li>
+</ul>
+<p>L’installation est maintenant terminée et on est prêts à utiliser la machine virtuelle.</p>
+<h4 id="questions-sur-la-préparation-de-la-vm">Questions sur la préparation de la VM:</h4>
+<ol type="1">
+<li><p>le “64-bit” de “Debian 64-bit” signifie qu’il s’agit de debian pour un processeur 64 bits.<br />
+<em>source</em> :<br />
+<a href="https://www.debian.org/ports/index.fr.html">Debian.org</a></p></li>
+<li><p>La configuration réseau par défaut est NAT. Pour trouver cela nous avons ouvert les menus <strong>Configurations</strong>, Puis <strong>Réseau</strong>.</p></li>
+<li><p>le fichier xml contenant la configuration de notre machine se nomme <em>nom_machine</em>.vbox. On le voit en lisant le fichier, la première ligne désigne son type de document <code>&lt;?xml version="1.0" ?&gt;</code>.</p></li>
+<li>Le document vbox ajoute en commentaire les façons de modifier la configuration de la machine. En effet, faire des manipulations directement sur le fichier peut être dangereux, même sans que la machine ne soit en route. Pour modifier la configuration de la machine, on peut :
+<ul>
+<li>Utiliser VBox Manager.</li>
+<li>Utiliser le VirtualBox Manager GUI.</li>
+</ul></li>
+</ol>
+<h4 id="questions-sur-linstallation-de-los">Questions sur l’installation de l’OS:</h4>
+<ol type="1">
+<li>Une fichier ISO est un format de fichier qui renvoie à une image disque, identique à un support optique(CD-ROM,DVD), et ce sans avoir besoin de lecteur optique.</li>
+<li>MATE et GNOME sont des environnements de bureau utilisés sous Linux.</li>
+<li>Un serveur web est un serveur recevant des requêtes du World Wide Web via Internet ou via intranet, requêtes utilisant le protocole HTTP.</li>
+<li>un serveur SSH, signifiant Secure Shell, est un terminal sécurisé pour la gestion des serveurs Linux. Avec le Shell, on peut communiquer avec des machines ou des serveurs avec les manipulations nécessaires. On peut donc administre les serveurs Linux, que ce soit physiquement, ou à distance.</li>
+<li>Un serveur mandataire(proxy en anglais) est un serveur informatique qui permet l’émission et la réception de requêtes entre un client et un serveur. Les serveurs mandataires sont utile pour la sécurisation des sytèmes d’information avec ses fonctionnalités d’anonymat, de mémoire cache ou de journalisation des données.</li>
+</ol>
+<h3 id="ème-partie-préparation-du-système">3<sup>ème</sup> Partie : Préparation du système</h3>
+<p>Pour accorder les droits sudo à un compte utilisateur user, il est tout d’abord nécessaire de se connecter en tant que superutilisateur root avec; depuis le terminal, la commande <code>su root</code> suivi de la saisie du mot de passe de root. À partir d’ici, plusieurs choix sont possibles, comme éditer le fichier /etc/sudoers avec la ligne <code>user = ALL(ALL:ALL) ALL</code>. Cette règle indique que l’on donne les droits sur n’importe quelle machine que cet utilisateur utilise (premier ALL), en prenant les droits de tous les utilisateurs et groupes (deuxième et troisème ALL), et le droit d’exécuter toutes les commandes (dernier ALL). Un autre moyen est d’utiliser la commande <code>usermod -aG sudo user</code>, ce qui ajoute user au groupe sudo, ce qui permettra à user d’utiliser la commande sudo après une reconnexion.</p>
+<p>On peut vérifier l’appartenance au groupe sudo de user avec la commande <code>groups [user]</code>, qui nous listera tous les groupes auxquels user est membre.</p>
+<p>Un problème qui reste à régler avec notre machine virtuelle est que l’écran possède une taille fixe, ce qui peut nuire au confort d’utilisation de celle-ci. Pour cela, avec Virtual Box, et la machine lancée, on insère l’image cd des additions invitées qui nous permettra de régler ce problème. Si on ne possède pas le fichier iso, Virtual Box nous propose un fichier à télécharger puis insérer. L’image CD inséré, on peut monter le cd avec la commande : <code>sudo mount /dev/cdrom /mnt</code> et ensuite installer les suppléments avec la commande : <code>sudo /mnt/VBoxLinuxAdditions.run</code> Après un redémarrage de la machine, on peut ainsi changer la résolution de l’écran depuis Système&gt;Préférences&gt;Matériel&gt;Affichage.</p>
+<h4 id="questions">Questions :</h4>
+<ol type="1">
+<li><p>Notre VM utilise amd64, on trouve cette information avec la commande `<code>uname -r</code>, qui donne des informations sur le système que l’on utilise.</p></li>
+<li><p>Les suppléments invités aident à mieux utiliser notre machine virtuelle. nottament en améliorant les peformances de notre machine, et en facilitant le partage des fichiers de la machine virtuelle.<br />
+<em>source</em> :<br />
+<a href="https://docs.oracle.com/cd/E26217_01/E35193/html/qs-guest-additions.html">Oracle.com</a></p></li>
+<li><p>La commande mount permet de gérer les partitions de notre machine. Dans ce cas spécifique on s’en sert pour installer les suppléments invités, qui se trouvent sur le CD.<br />
+<em>source</em> :<br />
+<a href="https://doc.ubuntu-fr.org/mount_fstab">ubuntu-fr.org</a></p></li>
+</ol>
+<h3 id="ème-partie-à-propos-de-la-distribution-debian">4<sup>ème</sup> Partie : À propos de la distribution Debian</h3>
+<ol type="1">
+<li><p>Debian est un système d’exploitation pour GNU/Linux, ayant une distribution libre et non commerciale : elle est accessible à tous de façon à ce que la communauté puisse coopérer pour améliorer et maintenir Debian le mieux possible. Son nom vient des noms “debra” et “ian”, appartenant au dévelopeur principal du projet et à sa compagne.<br />
+<em>sources</em> :<br />
+<a href="https://debian-facile.org/doc:debian">Présentation de Debian / Wiki / Debian-facile</a><br />
+<a href="https://www.debian.org/doc/manuals/debian-handbook/the-debian-project.fr.html#sect.what-is-debian">Chapitre 1. Le projet Debian</a></p></li>
+<li><p>La durée minimale est de 3 ans, la LTS est de 5 ans et la ELTS est de 10 ans.<br />
+<em>sources</em> :<br />
+<a href="https://www.debian.org/releases/index.fr.html">Debian – Les versions de Debian</a><br />
+<a href="https://www.debian.org/releases/index.fr.html">fr/LTS - Debian Wiki</a><br />
+<a href="https://wiki.debian.org/fr/LTS/Extended">fr/LTS/Extended - Debian Wiki</a></p></li>
+<li><p>La prise en charge de Mise à jour de sécurité par Debian s’arrête après 3 ans. Suite à cela l’équipe de LTS prends le relais, puis ensuite ELTS s’en charge. Ces mises à jour peuvent donc continuer jusqu’à 10 ans au maximum : pendant 3 ans par Debian, puis pendant 2 ans par les bénévoles du projet LTS, puis pendant 5 ans par Freexian.<br />
+<em>sources</em> :<br />
+<a href="https://www.debian.org/releases/index.fr.html">Debian – Les versions de Debian</a><br />
+<a href="https://www.debian.org/releases/index.fr.html">fr/LTS - Debian Wiki</a><br />
+<a href="https://wiki.debian.org/fr/LTS/Extended">fr/LTS/Extended - Debian Wiki</a></p></li>
+<li><p>Debian a au minimum trois versions entretenues : testing, stable et unstable. <em>sources</em> :<br />
+<a href="https://www.debian.org/releases/index.fr.html">Debian – Les versions de Debian</a></p></li>
+<li><p>Les noms de code des versions de Debian sont des références à des personnages de Toy Story, car Bruce Perens a pris la tête du projet et il travaillait pour Pixar à ce moment.<br />
+<em>sources</em> :<br />
+<a href="https://www.debian.org/doc/manuals/project-history/releases.fr.html">Chapitre 3. Les versions de Debian</a></p></li>
+<li><p>La version bullseye gérait 10 architectures.<br />
+<em>sources</em> :<br />
+<a href="https://www.debian.org/releases/bullseye/">Debian – Informations sur la version « Bullseye » de Debian</a></p></li>
+<li><p>La première version avec un nom de code a été Buzz (Debian 1.1). Elle date du 17 juin 1996. Elle est aujourd’hui obsolète et n’est plus entretenue.<br />
+<em>sources</em> :<br />
+<a href="https://www.debian.org/doc/manuals/project-history/releases.fr.html">Chapitre 3. Les versions de Debian</a></p></li>
+<li><p>Le dernier nom de code attribué est Trixie (Debian 13), annoncée le 31 décembre 2024. Elle est aujourd’hui en version testing.<br />
+<em>sources</em> :<br />
+<a href="https://www.debian.org/releases/index.fr.html">Debian – Les versions de Debian</a><br />
+<a href="https://www.debian.org/devel/debian-installer/News/2024/20241231.fr.html">Debian – Actualités – Publication de l’installateur Debian Trixie Alpha 1</a></p></li>
+</ol>
+<h3 id="ème-partie-installation-préconfigurée">5<sup>ème</sup> Partie : Installation préconfigurée</h3>
+<p>Il est possible par certains moyens d’automatiser l’installation de notre machine Debian 12, afin d’installer par défaut les applications que l’on souhaite, de créer les utilisateurs, en résumé de ne pas avoir à se soucier des étapes vues lors de l’installation manuelle.</p>
+<p>L’archive donnée par le corps enseignant permet de procéder à une installation automatisée. La première chose à faire est de remplacer l’emplacement de l’identifiant par un identifiant généré aléatoirement valide pour débuter l’installation. On le fait grâce à la commande :</p>
+<pre><code>sed -i -E &quot;s/(--iprt-iso-maker-file-marker-bourne-sh).*$/\1=$(cat
+/proc/sys/kernel/random/uuid)/&quot; S203-Debian12.viso</code></pre>
+<p>En lisant <code>/proc/kernel/random/uuid</code>, on recupère un identifiant généré aléatoirement par le noyeau de la machine. Cette commande utilise donc un sed pour remplacer l’emplacement de l’identifiant par la valeur aléatoire obtenue par le cat.</p>
+<p>L’identifiant généré peut se voir à la première ligne du document S203-Debian12.viso.</p>
+<figure>
+<img src="../../ressources/img/sem1/commSed.png" alt="document viso après commande sed" /><figcaption>document viso après commande sed</figcaption>
+</figure>
+<p>à partir de là on peut donc insérer le fichier .viso dans le lecteur optique de la VM, l’installation automatique est maintenant possible. Cependant ,lancer directement l’installation nous donne une machine sans les paquets importants que nous sélectionnons lors de l’installation manuelles. Comme l’on peut voir ici :</p>
+<figure>
+<img src="../../ressources/img/sem1/suroot.png" alt="aperçu de la machine" /><figcaption>aperçu de la machine</figcaption>
+</figure>
+<p>En particulier comme l’on voit ci-dessus, la machine n’a pas de partie graphique, dû à la non installation de MATE par exemple. De plus il nous manque des fonctionnalités, comme l’appel à la commande sudo. Des problèmes pareils peuvent être réglés manuellement, mais il est d’autant plus intéressant et pratique de revenir en arrière et de s’intéresser à la manipulation des fichiers de notre archive afin de régler ces problèmes en amont de l’installation. Ainsi il est important de modifier le document preseed.cfg. Dans la partie installation meta-paquetages : à la ligne 82 de la commande tasksel, il nous suffit d’ajouter le paquet mate-desktop à la fin de la ligne.</p>
+<p>Ensuite, on modifie le fichier vboxpostinstall.sh, qui est un script s’éxécutant après installation. On y ajoute les lignes de commande suivantes afin d’ajouter les fonctionnalités que l’on souhaite :</p>
+<figure>
+<img src="../../ressources/img/sem1/commandesAuto.png" alt="commandes d’installation de paquets" /><figcaption>commandes d’installation de paquets</figcaption>
+</figure>
+<p>Notre machine est alors prête à être utilisée pour la suite de la SAÉ.</p>
+<h2 id="semaine-2-apprentissage-de-balisage-léger-avec-markdown">Semaine 2 : Apprentissage de balisage léger avec Markdown</h2>
+<p>Nous avons choisi d'utiliser et d'apprendre Markdown pour ce projet. Pour aider à l’apprendre nous avons crée un document dans lequel on a noté ce que l’on a appris pendant les séances d’autonomie. Nous avons réussi à nous familariser avec Mardown sans trop de difficultés. Nous avons de même pu apprendre à transformer un fichier markdown en pdf, méthode que nous avons renseigné dans le readme.</p>
+<h2 id="semaine-3-recherchesétudes-applications-clientes">Semaine 3 : Recherches/études applications clientes</h2>
+<h3 id="ère-partie-configuration-globale-de-git">1<sup>ère</sup> Partie: configuration globale de git</h3>
+<p>Pour cette partie nous utiliserons la commande <code>git config --global</code>.<br />
+Cette commande permet donc de modifier les paramètres d’un dépôt git. la commande s’écrivant en local à l’origine, nous utilisons l’option <code>--global</code> afin que nos dépôts soient sous la même configuration au niveau de l’utilisateur, au sein du fichier <em>~/.gitconfig</em>.</p>
+<blockquote>
+<p>Il est aussi possible de modifier les paramètres aà l’échelle du dépôt par défaut, éditant le fichier .git/config ou à l’échelle de la machine avec l’option –system, éditant le fichier /etc/config.</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commande</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git config --global user.name "Jérôme Sauvé"</code></td>
+<td>change le nom d’utilisateur que l’on trouvera dans les logs du dépôt.</td>
+</tr>
+<tr class="even">
+<td><code>git config --global user.email "jerome.sauve.etu@univ-lille.fr"</code></td>
+<td>modifie l’adresse mail utilisateur associée au user.name.</td>
+</tr>
+<tr class="odd">
+<td><code>git config --global init.branchDefault "master"</code></td>
+<td>définit le nom de la branche par défaut, sans précisions un message à l’attention de l’utilisateur sera affiché à l’initialisation d’un dépôt git.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ème-partie-les-interfaces-graphiques-pour-git">2<sup>ème</sup> Partie : Les interfaces graphiques pour git</h3>
+<p>Afin d’obtenir une vision plus claire d’un dépôt git, on peut utiliser différentes applications. Parmi celles-ci : * Gitk : un navigateur de dépôt graphique, qui permet donc une visualisation des activités concernant notre dépôt. Codé en tcl/tk, tcl pour <em>Tool Command Language</em> qui correspond à la partie écriture des scripts, et tk l’extension allant de pair qui gère la partie graphique. L’application, une fois installée, se lance depuis le terminal avec la commande gitk une fois placé au niveau du dépôt git.Ainsi l’interface suivant nous apparait :</p>
+<figure>
+<img src="../../ressources/img/sem3/gitk-essai.png" alt="interface de gitk" /><figcaption>interface de gitk</figcaption>
+</figure>
+<p>Il s’agit d’un logiciel qui possède beaucoup de fonctionnalités, que ce soit l’affichage des branches du dépôt, la recherche de commits, avec précision sur les dates possibles ou non, et de les trier, ce qui en fait donc un logiciel général permettant d’appréhender les mécanismes de git.</p>
+<ul>
+<li>Git gui : interface graphique codée à partir des mêmes languages que Gitk, elle peut se lancer de la même manière, à partir du terminal. L’application nous affiche alors cette interface graphique :</li>
+</ul>
+<figure>
+<img src="../../ressources/img/sem3/git-gui.png" alt="interface de git gui." /><figcaption>interface de git gui.</figcaption>
+</figure>
+<p>L’interface de git gui pétant peut-être un peu plus épuré et accessible que gitk, il est seulement utilisé pour de l’annotation, la génération de blames ou de commit. Ainsi le logiciel git gui seul n’est pas optimal pour une gestion complète d’un dépôt.</p>
+<h3 id="ème-partie-installons-autre-chose-et-comparons.">3<sup>ème</sup> Partie : Installons autre chose et comparons.</h3>
+<p>Bien que Gitk et Git gui puissent être des outils satisfaisants, ce ne sont peut être pas les meilleurs outils selon l’utilisateur : l’interface de Gitk pourrait ne pas être assez confortable d’utilisation, et git gui pourrait manquer de fonctionnalités pour être un outil indispensable. Ainsi plusieurs ressources en ligne, tel que <a href="https://git-scm.com/downloads/guis?os=linux">git-scm.com</a>, sont disponibles pour trouver des interfaces conçues différemment.</p>
+<p>Pour cette SAÉ, notre choix s’est porté sur UnGit. Ses avantages sont que c’est un logiciel complètement gratuit, facilement installable depuis son terminal et son utilisation est similaire aux deux précédents logiciels.</p>
+<p>Pour ce faire, il nous suffit de rentrer ces lignes de commande :</p>
+<pre><code>sudo apt install npm
+sudo -H npm install -g ungit</code></pre>
+<p>une fois les paquets installés, on lance le logiciel avec la commande <code>ungit</code>, de la même façon que gitk et Git gui, qui ouvrira à l’extérieur du terminal, sur un navigateur web, cette interface :</p>
+<figure>
+<img src="../../ressources/img/sem3/ungit.png" alt="interface de ungit." /><figcaption>interface de ungit.</figcaption>
+</figure>
+<h2 id="semaine-4-istallation-de-gitea">Semaine 4 : Istallation de Gitea</h2>
+<h3 id="installation-de-gitea">Installation de Gitea</h3>
+<h5 id="à-propos-de-gitea">À propos de Gitea</h5>
+<ol type="1">
+<li><p>Gitea est un logiciel permettant de mettre en place un service git sur sa machine (au lieu que le service soit hébergé sur un serveur distant), visant à être simple d’utilisation et d’installation. Il permet donc l’organisation de projets à travers différents utilisateurs et machines en temps réel.</p></li>
+<li><p>Gitea est un logiciel comparable à :</p></li>
+</ol>
+<ul>
+<li><p>GitHub : Un logiciel de service git hébergé sur les serveurs de Git, permettant lui aussi la collaboration en temps réel sur un projet.</p></li>
+<li><p>GitLab : un logiciel de service git hebergé sur sa machine, il offre accès à tous les outils de DevOps pour ses projets.</p></li>
+</ul>
+<ol start="3" type="1">
+<li><p>Un fork est une copie du code source d’un logiciel, à partir de laquelle un développement différent de l’original peut commencer.</p></li>
+<li><p>Gitea est à l’origine un fork de Gogs, ce logiciel existe toujours indépendamment de gitea.</p></li>
+</ol>
+<h4 id="installation">Installation</h4>
+<p>Pour commencer notre installation du service Gitea, nous allons nous appuyer sur la méthode d’installation pour téléchargement du binaire décrite <a href="https://docs.gitea.io/en-us/install-from-binary/">ici</a>. En premier lieu nous choisissons la version de gitea que nous allons installer. Pour permettre une mise à jour de la version du service nous prendrons donc la version 1.23.0 de Gitea. Donc pour notre système qui est pour rappel l’architecture Debian 12 64-bits, nous téléchargerons le fichier gitea-1.23.0-linux-amd64.</p>
+<figure>
+<img src="../../ressources/img/sem4/sem4dlgitea.png" alt="choix du binaire" /><figcaption>choix du binaire</figcaption>
+</figure>
+<p>Puis, pour vérifier notre clé GPG, qui nous permet une sécurité de nos données en chiffrant les données entrantes et à l’inverse chiffrer les données sortantes, nous téléchargeons le fichier .asc et vérifions la clé gpg de notre service avec les commandes suivantes :</p>
+<figure>
+<img src="../../ressources/img/sem4/sem4installgitea1.png" alt="création du trousseau local" /><figcaption>création du trousseau local</figcaption>
+</figure>
+<figure>
+<img src="../../ressources/img/sem4/sem4installgitea2.png" alt="vérification de la clef gpg" /><figcaption>vérification de la clef gpg</figcaption>
+</figure>
+<p>Une fois la vérification faite, il nous faut préparer la machine à recevoir le service réseau. Nous allons créer un nouvel utilisateur nommé git, via la commande :</p>
+<figure>
+<img src="../../ressources/img/sem4/sem4installgitea3.png" alt="création utilisateur git" /><figcaption>création utilisateur git</figcaption>
+</figure>
+<p>Ensuite pour préparer l’environnement à accueillir le service, nous créons dans l’arborescence :</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>emplacement</th>
+<th>propriétaire utilisateur</th>
+<th>droits</th>
+<th>propriétaire groupe</th>
+<th>droits</th>
+<th>droits autres</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>/var/lib/gitea</td>
+<td>git</td>
+<td>rwx</td>
+<td>git</td>
+<td>r-x</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>/etc/gitea</td>
+<td>root</td>
+<td>rwx</td>
+<td>git</td>
+<td>rwx</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="../../ressources/img/sem4/sem4installgitea4.png" alt="création des emplacements nécessaires" /><figcaption>création des emplacements nécessaires</figcaption>
+</figure>
+<p>À noter que les droits seront amenés à être changés une fois l’installation complète et le service fonctionnel.</p>
+<figure>
+<img src="../../ressources/img/sem4/installgiteastatus.png" alt="vérification de la bonne installation de Gitea" /><figcaption>vérification de la bonne installation de Gitea</figcaption>
+</figure>
+<p>Une fois Gitea bien installé, nous nous y connectons en saisissant dans un navigateur l’adresse http://localhost:3000.</p>
+<p>La première chose que l’on nous demande est de faire la paramétrage web de gitea, que l’on fait comme ci-suit :</p>
+<figure>
+<img src="../../ressources/img/sem4/configgitea.png" alt="Config1" /><figcaption>Config1</figcaption>
+</figure>
+<figure>
+<img src="../../ressources/img/sem4/configgitea2.png" alt="Config2" /><figcaption>Config2</figcaption>
+</figure>
+<p>Une fois le paramétrage fait, il ne nous reste plus qu’à créer le compte qui sera administrateur de notre service, et ainsi Gitea est désormais prêt à l’emploi sur notre machine.</p>
+<figure>
+<img src="../../ressources/img/sem4/giteasignin.png" alt="création du profil admin de notre service local" /><figcaption>création du profil admin de notre service local</figcaption>
+</figure>
+<figure>
+<img src="../../ressources/img/sem4/interface%20gitea.png" alt="accès au service" /><figcaption>accès au service</figcaption>
+</figure>
+<h3 id="mise-à-jour">Mise à jour</h3>
+<p>Le service Gitea peut être mis à jour, que ce soit vers une version plus récente ou plus ancienne, même si ce dernier n’est pas conseillé, la structure des données d’une version à l’autre pouvant varier, cela pourrait rendre le service inopérant.</p>
+<h4 id="mise-à-jour-par-téléchargement-dun-nouveau-binaire">Mise à jour par téléchargement d’un nouveau binaire</h4>
+<ol type="1">
+<li>La version actuelle de Gitea est la version 1.23.0, nous pouvons le constater avec la commande :</li>
+</ol>
+<figure>
+<img src="../../ressources/img/sem4/giteaversion.png" alt="version de gitea trouvée" /><figcaption>version de gitea trouvée</figcaption>
+</figure>
+<ol start="2" type="1">
+<li>Pour mettre à jour le binaire, il nous faut d’abord arrêter le service avec la commande <code>systemctl stop gitea</code>. Il est ensuite nécessaire de télécharger le binaire de la version voulue comme nous l’avons fait lors de l’installation, que l’on placera dans le dossier temporaire /tmp/gitea, soit on peut directement exécuter la commande <code>wget -O /tmp/gitea https://dl.gitea.io/gitea/VERSION/gitea-VERSION-linux-amd64</code> depuis notre terminal. N’ayant pas trouvé la version 1.24-dev par la recherche du binaire ou par la commande wget, nous avons décidé de mettre à jour le service à la version <strong>1.23.5</strong> à la place. Ensuite, , après avoir supprimé le binaire de notre ancienne version du service, nous déplaçons le nouveau binaire à l’emplacement /usr/local/bin. Après avoir rendu le dossier /usr/local/bin/gitea, nous pouvons faire <code>systemctl restart gitea</code>. Une fois les manipulations faites, nous pouvons constater la mise à jour faite.</li>
+</ol>
+<figure>
+<img src="../../ressources/img/sem4/giteaupdate.png" alt="Version de gitea actualisée" /><figcaption>Version de gitea actualisée</figcaption>
+</figure>
+<h3 id="tests-dutilisation">Tests d’utilisation</h3>
+<p>Pour utiliser gitea nous avons d’abord créé un dépôt d’essai.</p>
+<p>La première étape étant d’y téléverser notre rapport, nous avons donc procédé de la même manière que par l’utilisation de GitHub. <img src="../../ressources/img/sem4/manipgitea.png" alt="dépôt des rapports" /> Le service de gitea ayant été installé sur le profil de Jérôme Sauvé depuis son ordinateur personnel, il nous a donc fallu que Alexandre Maintier puisse accéder au dépôt. Ce qui ne peut pas se faire comme cela car notre dépôt gitea tourne en localhost. Ce qui fait que notre dépôt est invisible depuis l’extérieur, donc impossible de l’ajouter comme cela. Nous avons pu explorer une piste, sans succès malheureusement, qui est d’utiliser la redirection de port pour partager depuis l’ordinateur hôte, à savoir en cherchant dans le navigateur de l’appareil externe l’addresse <em>http://IpPublicMachineHote:3000</em>. Cependant peut être car la redirection de port de l’appareil hôte n’était pas bien configuré, nous n’avons pas réussi à obtenir un résultat pour effectuer la manipulation.</p>
+</body>
+</html>
